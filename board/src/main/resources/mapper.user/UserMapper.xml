@@ -1,0 +1,25 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board_final.mapper.UserMapper">
+<!--    사용자 정보 조회-->
+    <select id="findByProviderId" resultType="UsersDTO">
+        SELECT NAME,PROFILE_PIC,PROVIDER,PROVIDER_ID,CREATE_AT,UPDATE_AT
+        FROM TBL_USERS WHERE PROVIDER_ID = #{providerId}
+
+    </select>
+
+    <!--    사용자 정보 저장 -->
+    <insert id="insertUser" parameterType="UsersDTO">
+        INSERT INTO TBL_USERS
+            (name, profile_pic, provider, provider_id, create_at, update_at)
+        values
+            (#{name}, #{profilePic}, #{provider}, #{providerId}, #{createAt}, #{updateAt})
+    </insert>
+
+    <!--    사용자 정보 업데이트 -->
+    <update id="updateUser" parameterType="UsersDTO">
+        UPDATE TBL_USERS
+        SET name=#{name}, profile_pic=#{profilePic}, update_at = SYSDATE
+        where provider_id = #{providerId}
+    </update>
+
+</mapper>

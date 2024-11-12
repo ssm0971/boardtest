@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.board.mapper.FileMapper">
+    <insert id="insertFile">
+        INSERT INTO TBL_FILE (file_id, board_id, original_file_name,
+                              stored_file_name, file_size, upload_time)
+        VALUES (seq_file.nextval, #{boardId}, #{originalFileName},
+                #{storedFileName}, #{fileSize}, SYSDATE)
+    </insert>
+
+    <select id="getFileListByBoardId" resultType="FileVO">
+            SELECT
+                file_id,
+                board_id,
+                original_file_name,
+                stored_file_name,
+                file_size,
+                upload_time
+            FROM
+                TBL_FILE
+            WHERE
+                board_id = #{boardId}
+        </select>
+
+        <select id="getFileById" resultType="FileVO">
+            SELECT
+                file_id,
+                board_id,
+                original_file_name,
+                stored_file_name,
+                file_size,
+                upload_time
+            FROM
+                TBL_FILE
+            WHERE
+                file_id = #{fileId}
+        </select>
+
+        <delete id="deleteFiles">
+            DELETE FROM TBL_FILE
+            WHERE BOARD_ID = #{boardId}
+        </delete>
+</mapper>
